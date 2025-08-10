@@ -12,9 +12,10 @@ exports.handler = async (event) => {
   try {
     const { name, contact, email, address, city, order_details, total_amount } = JSON.parse(event.body);
 
+    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
     const auth = new google.auth.GoogleAuth({
-      keyFile: path.join(__dirname, '../../google-credentials.json'),
-      scopes: ['https://www.googleapis.com/auth/spreadsheets']
+    credentials,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
