@@ -1,0 +1,4 @@
+# Local Netlify folder
+.netlify
+# Google API credentials
+google-credentials.json
