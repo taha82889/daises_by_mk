@@ -12,21 +12,16 @@ exports.handler = async (event) => {
   try {
     const { name, contact, email, address, city, order_details, total_amount } = JSON.parse(event.body);
      if (!process.env.GOOGLE_CREDENTIALS) {
-       console.log("error");
       throw new Error("Google credentials not set in environment variables");
     }
 
-
-   const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    // Parse the credentials from the environment variable
+    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
     const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: credentials.client_email,
-        private_key: credentials.private_key.replace(/\\n/g, '\n') // important for Netlify
-      },
+      credentials: credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
-
 
     const sheets = google.sheets({ version: 'v4', auth });
     const spreadsheetId = '1qRTJASdTQ3wGKcWCwkK7oI9g-xl0HeTt4PnC5wEsT8M';
