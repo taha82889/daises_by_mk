@@ -12,6 +12,7 @@ exports.handler = async (event) => {
   try {
     const { name, contact, email, address, city, order_details, total_amount } = JSON.parse(event.body);
      if (!process.env.GOOGLE_CREDENTIALS) {
+       console.log("error");
       throw new Error("Google credentials not set in environment variables");
     }
 
