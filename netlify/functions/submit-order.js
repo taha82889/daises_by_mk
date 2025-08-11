@@ -23,7 +23,9 @@ exports.handler = async (event) => {
       auth_provider_x509_cert_url: process.env.GOOGLE_AUTH_PROVIDER_CERT_URL,
       client_x509_cert_url: process.env.GOOGLE_CLIENT_CERT_URL,
       universe_domain: process.env.GOOGLE_UNIVERSE_DOMAIN,
-  };
+    };
+    console.log(process.env.GOOGLE_PRIVATE_KEY_ID);
+    
 
     const auth = new google.auth.GoogleAuth({
     credentials,
