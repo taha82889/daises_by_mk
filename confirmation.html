@@ -90,11 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
       <p><strong>Total:</strong> $${order.totalPrice}</p>
     `;
   }
-
-  // Fill hidden inputs
-  document.getElementById("order_details").value = order.products.map(p => p.name).join(", ");
-  document.getElementById("total_amount").value = order.totalPrice;
-  document.getElementById("display_total").value = `$${order.totalPrice}`;
+  if (order.products && order.products.length > 0) {
+    document.getElementById("order_details").value = order.products.map(p => p.name).join(", ");
+    document.getElementById("total_amount").value = order.totalPrice;
+    document.getElementById("display_total").value = `$${order.totalPrice}`;
+} else {
+    console.warn("No products found for hidden inputs:", order);
+}
+  
 });
 
 document.getElementById("order-form").addEventListener("submit", async (e) => {
