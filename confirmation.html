@@ -100,20 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 });
 
-document.getElementById("order-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
 
-  const formData = Object.fromEntries(new FormData(e.target));
-
-  const res = await fetch("/.netlify/functions/submit-order", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData),
-  });
-
-  const data = await res.json();
-  alert(data.message);
-});
 </script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>
