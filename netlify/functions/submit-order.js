@@ -11,16 +11,23 @@ exports.handler = async (event) => {
 
   try {
     const { name, contact, email, address, city, order_details, total_amount } = JSON.parse(event.body);
-     if (!process.env.GOOGLE_CREDENTIALS) {
-      throw new Error("Google credentials not set in environment variables");
-    }
-
-    // Parse the credentials from the environment variable
-    const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    const credentials = {
+      type: process.env.GOOGLE_TYPE,
+      project_id: process.env.GOOGLE_PROJECT_ID,
+      private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
+      private_key: process.env.GOOGLE_PRIVATE_KEY
+      client_email: process.env.GOOGLE_CLIENT_EMAIL,
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      auth_uri: process.env.GOOGLE_AUTH_URI,
+      token_uri: process.env.GOOGLE_TOKEN_URI,
+      auth_provider_x509_cert_url: process.env.GOOGLE_AUTH_PROVIDER_CERT_URL,
+      client_x509_cert_url: process.env.GOOGLE_CLIENT_CERT_URL,
+      universe_domain: process.env.GOOGLE_UNIVERSE_DOMAIN,
+  };
 
     const auth = new google.auth.GoogleAuth({
-      credentials: credentials,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets']
+    credentials,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
