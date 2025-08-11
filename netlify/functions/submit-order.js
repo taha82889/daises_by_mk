@@ -16,8 +16,13 @@ exports.handler = async (event) => {
     }
 
 
+   const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+
     const auth = new google.auth.GoogleAuth({
-      keyFile: path.join(__dirname, '../../google-credentials.json'),
+      credentials: {
+        client_email: credentials.client_email,
+        private_key: credentials.private_key.replace(/\\n/g, '\n') // important for Netlify
+      },
       scopes: ['https://www.googleapis.com/auth/spreadsheets']
     });
 
