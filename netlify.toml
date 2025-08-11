@@ -1,3 +1,5 @@
+# in netlify.toml
 [build]
-  publish = "."                # or "public" if you have one
+  command = "npm run build"
   functions = "netlify/functions"
+  publish = "dist" # Change this from "/"
